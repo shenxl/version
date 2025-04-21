@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "released": "2024-4-21",
+  "updateMessage": "初始版本模板发布",
+  "templates": {
+    "basic": {
+      "files": ["navigation_template.json", "apps_temp.csv", "common_apps.json", "workbench.json", "group.json"]
+    },
+    "higher": {
+      "files": ["navigation_template.json", "apps_temp.csv", "common_apps.json", "workbench.json", "group.json"]
+    }
+  }
+} 

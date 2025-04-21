@@ -1,0 +1,166 @@
+{
+  "PC": {
+    "main_tab_bar": {
+      "primary": [
+        {
+          "type": "widget",
+          "name": "消息",
+          "item_key": "messages"
+        },
+        {
+          "type": "widget",
+          "name": "文档",
+          "item_key": "docs"
+        },
+        {
+          "type": "app",
+          "name": "教学空间",
+          "item_key": "AK20250411IPRDMO"
+        },
+        {
+          "type": "app",
+          "name": "WPS教学平台",
+          "item_key": "AK20250411OVAALS"
+        },
+        {
+          "type": "app",
+          "name": "WPS灵犀",
+          "item_key": "AK20250411KHRLWR"
+        },
+        {
+          "type": "app",
+          "name": "会议",
+          "item_key": "woa-meeting-assistant"
+        },
+        {
+          "type": "app",
+          "name": "日历",
+          "item_key": "calendar"
+        },
+        {
+          "type": "widget",
+          "name": "我的",
+          "item_key": "me"
+        }
+      ],
+      "more": []
+    },
+    "main_frame_tab_bar": {
+      "items": [
+        {
+          "type": "widget",
+          "name": "智慧校园",
+          "item_key": "workbench"
+        }
+      ]
+    },
+    "personal_center_menu": {
+      "items": [
+        {
+          "type": "widget",
+          "name": "通讯录",
+          "item_key": "contacts"
+        }
+      ]
+    },
+    "me_menu": null
+  },
+  "mobile": {
+    "main_tab_bar": {
+      "primary": [
+        {
+          "type": "widget",
+          "name": "消息",
+          "item_key": "messages"
+        },
+        {
+          "type": "app",
+          "name": "WPS灵犀",
+          "item_key": "AK20250411KHRLWR"
+        },
+        {
+          "type": "widget",
+          "name": "智慧校园",
+          "item_key": "workbench"
+        },
+        {
+          "type": "widget",
+          "name": "文档",
+          "item_key": "docs"
+        },
+        {
+          "type": "widget",
+          "name": "捷径",
+          "item_key": "shortcut"
+        }
+      ],
+      "more": [
+        {
+          "type": "app",
+          "name": "会议",
+          "item_key": "woa-meeting-assistant"
+        },
+        {
+          "type": "app",
+          "name": "日历",
+          "item_key": "calendar"
+        },
+        {
+          "type": "app",
+          "name": "待办中心",
+          "item_key": "woa-task-center"
+        },
+        {
+          "type": "app",
+          "name": "文件收集",
+          "item_key": "AK20250411GULLAO"
+        },
+        {
+          "type": "widget",
+          "name": "我的",
+          "item_key": "me"
+        }
+      ]
+    },
+    "main_frame_tab_bar": {
+      "items": []
+    },
+    "personal_center_menu": {
+      "items": []
+    },
+    "me_menu": {
+      "items": [
+        {
+          "type": "widget",
+          "name": "通讯录",
+          "item_key": "contacts"
+        },
+        {
+          "type": "widget",
+          "name": "待办",
+          "item_key": "todo_list"
+        },
+        {
+          "type": "widget",
+          "name": "会议",
+          "item_key": "meeting_list"
+        },
+        {
+          "type": "widget",
+          "name": "聊天文件",
+          "item_key": "chat_files"
+        },
+        {
+          "type": "widget",
+          "name": "收藏",
+          "item_key": "favorite_list"
+        },
+        {
+          "type": "widget",
+          "name": "下载列表",
+          "item_key": "download_list"
+        }
+      ]
+    }
+  }
+}

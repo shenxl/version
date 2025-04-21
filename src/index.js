@@ -1,5 +1,5 @@
 /**
- * KDocs API 转发 Worker
+ * KDocs API 转发 Worker 与 QuickConfig Templates API
  */
 
 // 处理请求的主函数
@@ -11,6 +11,34 @@ async function handleRequest(request, env) {
   // 处理 OPTIONS 请求（CORS预检）
   if (method === "OPTIONS") {
     return handleCors(request);
+  }
+  
+  // 新增：路由匹配 /api/version - 获取最新版本号
+  if (method === "GET" && path === "/api/version") {
+    try {
+      // 这里可以从环境变量或其他地方获取当前版本
+      const version = env.CURRENT_VERSION || "1.0.0";
+      
+      return new Response(JSON.stringify({ version }), {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      });
+    } catch (error) {
+      // 错误处理
+      return new Response(JSON.stringify({
+        error: "处理请求时出错",
+        details: error.message
+      }), {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      });
+    }
   }
   
   // 路由匹配 /v1/wo/file/<fileid>/script/<taskid>/sync_task
