@@ -15,7 +15,7 @@ npm run dev
 ## 部署
 
 ```bash
-# 部署到Cloudflare
+# 部署到Cloudflare （测试）
 npm run deploy
 ```
 
