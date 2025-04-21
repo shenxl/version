@@ -3,4 +3,4 @@ main = "src/index.js"
 compatibility_date = "2023-08-01"
 
 [vars]
-MESSAGE = "环境变量示例" 
+AirScript_Token = "771DFCwiaEbNjBriQtAHWF"

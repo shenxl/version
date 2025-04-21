@@ -1,148 +1,100 @@
 /**
- * RESTful API Worker 
+ * KDocs API 转发 Worker
  */
 
-// 内存数据存储示例（在生产环境中应使用KV或D1等持久化存储）
-const items = new Map();
-
-// 请求路由和处理程序
+// 处理请求的主函数
 async function handleRequest(request, env) {
   const url = new URL(request.url);
   const path = url.pathname;
   const method = request.method;
   
-  // 路由匹配
-  if (path === '/') {
-    return new Response(JSON.stringify({ 
-      message: `欢迎使用Node.js Cloudflare Worker! ${env.MESSAGE}`
-    }), {
-      headers: { 'Content-Type': 'application/json' }
-    });
-  }
-  
-  // 获取所有项目
-  if (path === '/items' && method === 'GET') {
-    return new Response(JSON.stringify(Array.from(items.values())), {
-      headers: { 'Content-Type': 'application/json' }
-    });
-  }
-  
-  // 获取单个项目
-  if (path.match(/^\/items\/\d+$/) && method === 'GET') {
-    const id = path.split('/').pop();
-    if (items.has(id)) {
-      return new Response(JSON.stringify(items.get(id)), {
-        headers: { 'Content-Type': 'application/json' }
-      });
-    }
-    return new Response(JSON.stringify({ error: '项目不存在' }), {
-      status: 404,
-      headers: { 'Content-Type': 'application/json' }
-    });
-  }
-  
-  // 创建项目
-  if (path === '/items' && method === 'POST') {
-    try {
-      const body = await request.json();
-      if (!body.name || !body.price) {
-        return new Response(JSON.stringify({ error: '名称和价格为必填项' }), {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' }
-        });
-      }
-      
-      const id = Date.now().toString();
-      const newItem = {
-        id,
-        name: body.name,
-        description: body.description || '',
-        price: body.price,
-        tax: body.tax || null
-      };
-      
-      items.set(id, newItem);
-      
-      return new Response(JSON.stringify(newItem), {
-        status: 201,
-        headers: { 'Content-Type': 'application/json' }
-      });
-    } catch (error) {
-      return new Response(JSON.stringify({ error: '无效的JSON数据' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
-    }
-  }
-  
-  // 更新项目
-  if (path.match(/^\/items\/\d+$/) && method === 'PUT') {
-    const id = path.split('/').pop();
-    if (!items.has(id)) {
-      return new Response(JSON.stringify({ error: '项目不存在' }), {
-        status: 404,
-        headers: { 'Content-Type': 'application/json' }
-      });
-    }
-    
-    try {
-      const body = await request.json();
-      const existingItem = items.get(id);
-      const updatedItem = {
-        id,
-        name: body.name || existingItem.name,
-        description: body.description !== undefined ? body.description : existingItem.description,
-        price: body.price || existingItem.price,
-        tax: body.tax !== undefined ? body.tax : existingItem.tax
-      };
-      
-      items.set(id, updatedItem);
-      
-      return new Response(JSON.stringify(updatedItem), {
-        headers: { 'Content-Type': 'application/json' }
-      });
-    } catch (error) {
-      return new Response(JSON.stringify({ error: '无效的JSON数据' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
-    }
-  }
-  
-  // 删除项目
-  if (path.match(/^\/items\/\d+$/) && method === 'DELETE') {
-    const id = path.split('/').pop();
-    if (!items.has(id)) {
-      return new Response(JSON.stringify({ error: '项目不存在' }), {
-        status: 404,
-        headers: { 'Content-Type': 'application/json' }
-      });
-    }
-    
-    items.delete(id);
-    return new Response(null, { status: 204 });
-  }
-  
-  // 处理OPTIONS请求（CORS预检）
-  if (method === 'OPTIONS') {
+  // 处理 OPTIONS 请求（CORS预检）
+  if (method === "OPTIONS") {
     return handleCors(request);
   }
   
+  // 路由匹配 /v1/wo/file/<fileid>/script/<taskid>/sync_task
+  const syncTaskPattern = /^\/v1\/wo\/file\/([^\/]+)\/script\/([^\/]+)\/sync_task$/;
+  if (method === "POST" && syncTaskPattern.test(path)) {
+    const matches = path.match(syncTaskPattern);
+    const fileId = matches[1];
+    const taskId = matches[2];
+    
+    try {
+      // 读取请求体
+      const requestData = await request.json();
+      
+      // 转发请求到KDocs API
+      const result = await forwardToKDocsAPI(fileId, taskId, requestData, env.AirScript_Token);
+      
+      // 返回KDocs API的响应
+      return new Response(JSON.stringify(result), {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      });
+    } catch (error) {
+      // 错误处理
+      return new Response(JSON.stringify({
+        error: "处理请求时出错",
+        details: error.message
+      }), {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      });
+    }
+  }
+  
   // 如果没有匹配的路由
-  return new Response(JSON.stringify({ error: '未找到请求的资源' }), {
+  return new Response(JSON.stringify({ error: "未找到请求的资源" }), {
     status: 404,
-    headers: { 'Content-Type': 'application/json' }
+    headers: { "Content-Type": "application/json" }
   });
+}
+
+/**
+ * 转发请求到KDocs API
+ */
+async function forwardToKDocsAPI(fileId, taskId, data, token) {
+  const kdocsEndpoint = `https://365.kdocs.cn/api/v3/ide/file/${fileId}/script/${taskId}/sync_task`;
+  
+  const headers = new Headers();
+  headers.append("Origin", ".kdocs.cn");
+  headers.append("Content-Type", "application/json");
+  headers.append("AirScript-Token", token);
+  
+  const requestOptions = {
+    method: "POST",
+    headers: headers,
+    body: JSON.stringify(data),
+    redirect: "follow"
+  };
+  
+  // 发送请求到KDocs API
+  const response = await fetch(kdocsEndpoint, requestOptions);
+  
+  // 检查响应状态
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`KDocs API 错误: ${response.status} ${errorText}`);
+  }
+  
+  // 解析并返回响应
+  return await response.json();
 }
 
 // 处理CORS逻辑
 function handleCors(request) {
-  // 返回CORS头
   return new Response(null, {
     headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, AirScript-Token",
     },
   });
 }
@@ -150,7 +102,7 @@ function handleCors(request) {
 // 添加CORS头到所有响应
 function addCorsHeaders(response) {
   const newHeaders = new Headers(response.headers);
-  newHeaders.set('Access-Control-Allow-Origin', '*');
+  newHeaders.set("Access-Control-Allow-Origin", "*");
   
   return new Response(response.body, {
     status: response.status,
@@ -169,11 +121,14 @@ export default {
       return addCorsHeaders(response);
     } catch (error) {
       // 错误处理
-      return new Response(JSON.stringify({ error: '服务器内部错误', details: error.message }), {
+      return new Response(JSON.stringify({ 
+        error: "服务器内部错误", 
+        details: error.message 
+      }), {
         status: 500,
         headers: { 
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
         }
       });
     }
