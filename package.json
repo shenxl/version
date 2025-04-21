@@ -1,0 +1,12 @@
+{
+  "name": "python-api-worker",
+  "version": "1.0.0",
+  "description": "基于Python的Cloudflare Worker项目",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "git add . && git commit -m \"Deployment $(date)\" && git push -u origin main && echo '✅ 已成功推送到GitHub，Cloudflare将自动部署'"
+  },
+  "devDependencies": {
+    "wrangler": "^4.12.0"
+  }
+} 

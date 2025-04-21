@@ -1,0 +1,27 @@
+# Node modules
+node_modules/
+
+# Wrangler
+.wrangler/
+.dev.vars
+
+# Environment variables
+.env
+
+# Build output
+dist/
+worker/
+worker.js
+
+# Logs
+*.log
+logs/
+
+# OS specific
+.DS_Store
+
+# Editor directories
+.idea/
+.vscode/
+*.swp
+*.swo 
