@@ -1,48 +1,52 @@
 /**
  * 将模板文件上传到Cloudflare KV的脚本
- * 使用方法: node upload-templates.js
- * 
- * CI/CD环境中设置以下环境变量:
- * - CF_API_TOKEN: Cloudflare API令牌
- * - CF_ACCOUNT_ID: Cloudflare账户ID
+ * 使用方法: node upload-templates.js [--local|--remote]
+ * 选项：
+ *   --local    只上传到本地KV (默认)
+ *   --remote   只上传到远程KV
+ *   --both     同时上传到本地和远程KV
  */
 
 const fs = require('fs');
 const path = require('path');
-const { execSync, exec } = require('child_process');
+const { execSync } = require('child_process');
 
 // 模板目录
 const TEMPLATE_DIR = path.join(__dirname, 'src', 'template');
 
-// 从环境变量或wrangler.toml获取KV命名空间ID
-let KV_NAMESPACE_ID = null;
+// 解析命令行参数
+let uploadTarget = 'local'; // 默认为本地
+const args = process.argv.slice(2);
+if (args.includes('--remote')) {
+  uploadTarget = 'remote';
+}
+if (args.includes('--both')) {
+  uploadTarget = 'both';
+}
+
+console.log(`上传目标: ${uploadTarget === 'both' ? '本地和远程' : uploadTarget === 'remote' ? '远程' : '本地'}`);
 
 /**
  * 上传单个文件到KV
  */
-function uploadFileToKV(filePath, kvKey) {
+function uploadFileToKV(filePath, kvKey, isLocal = true) {
   try {
     const content = fs.readFileSync(filePath, 'utf-8');
     
-    // 构建命令，根据环境添加相应的认证参数
+    // 构建命令，增加本地/远程选项
     let command = `npx wrangler kv key put --binding=TEMPLATES_KV "${kvKey}" '${content.replace(/'/g, "\\'")}'`;
     
-    // 如果在CI/CD环境中，使用环境变量中的Token和AccountID
-    if (process.env.CF_API_TOKEN && process.env.CF_ACCOUNT_ID) {
-      command = `npx wrangler kv key put --binding=TEMPLATES_KV "${kvKey}" '${content.replace(/'/g, "\\'")}' --account-id=${process.env.CF_ACCOUNT_ID}`;
+    // 如果是远程上传，添加 --remote 标志
+    if (!isLocal) {
+      command += ' --remote';
     }
     
-    console.log(`上传: ${filePath} -> ${kvKey}`);
-    execSync(command, { 
-      stdio: 'inherit',
-      env: {
-        ...process.env,
-        CLOUDFLARE_API_TOKEN: process.env.CF_API_TOKEN || process.env.CLOUDFLARE_API_TOKEN
-      }
-    });
+    console.log(`上传: ${filePath} -> ${kvKey} ${isLocal ? '(本地)' : '(远程)'}`);
+    execSync(command, { stdio: 'inherit' });
+    
     return true;
   } catch (error) {
-    console.error(`上传失败 ${filePath}: ${error.message}`);
+    console.error(`上传失败 ${filePath} ${isLocal ? '(本地)' : '(远程)'}: ${error.message}`);
     return false;
   }
 }
@@ -65,7 +69,15 @@ function processDirectory(dir, basePath = '') {
     } else if (entry.isFile()) {
       // 处理文件
       const relativePath = path.join(basePath, entry.name);
-      uploadFileToKV(fullPath, relativePath);
+      
+      // 根据上传目标选择上传位置
+      if (uploadTarget === 'local' || uploadTarget === 'both') {
+        uploadFileToKV(fullPath, relativePath, true);
+      }
+      
+      if (uploadTarget === 'remote' || uploadTarget === 'both') {
+        uploadFileToKV(fullPath, relativePath, false);
+      }
     }
   }
 }
@@ -97,29 +109,13 @@ async function main() {
     process.exit(1);
   }
   
-  // 检查是否在CI/CD环境中运行
-  const isCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
-  console.log(`运行环境: ${isCI ? 'CI/CD' : '本地'}`);
-  
   // 提取KV命名空间ID
-  KV_NAMESPACE_ID = extractKVNamespaceId();
-  if (!KV_NAMESPACE_ID && !isCI) {
+  const kvNamespaceId = extractKVNamespaceId();
+  if (!kvNamespaceId) {
     console.error('请先在wrangler.toml中配置正确的KV命名空间ID');
-    console.error('运行 `npx wrangler kv:namespace create TEMPLATES_KV` 创建KV命名空间');
+    console.error('运行 `npx wrangler kv namespace create TEMPLATES_KV` 创建KV命名空间');
     console.error('然后将生成的ID填入wrangler.toml文件');
     process.exit(1);
-  }
-  
-  // 在CI环境中，验证所需的环境变量
-  if (isCI) {
-    if (!process.env.CF_API_TOKEN) {
-      console.error('CI/CD环境中需要设置 CF_API_TOKEN 环境变量');
-      process.exit(1);
-    }
-    if (!process.env.CF_ACCOUNT_ID) {
-      console.error('CI/CD环境中需要设置 CF_ACCOUNT_ID 环境变量');
-      process.exit(1);
-    }
   }
   
   console.log('开始上传模板文件到Cloudflare KV...');
@@ -131,4 +127,7 @@ async function main() {
 }
 
 // 执行主函数
-main(); 
+main().catch(error => {
+  console.error('脚本执行失败:', error);
+  process.exit(1);
+}); 

@@ -2,9 +2,6 @@
  * KDocs API 转发 Worker 与 QuickConfig Templates API
  */
 
-// 导入模板文件
-import versionJson from './template/version.json';
-
 // 处理请求的主函数
 async function handleRequest(request, env) {
   const url = new URL(request.url);
@@ -20,7 +17,7 @@ async function handleRequest(request, env) {
   if (method === "GET" && path === "/api/version") {
     try {
       // 从环境变量获取版本，如果没有设置则使用模板中定义的版本
-      const version = env.CURRENT_VERSION || versionJson.version || "1.0.0";
+      const version = env.CURRENT_VERSION || "1.0.0";
       
       return new Response(JSON.stringify({ version }), {
         status: 200,

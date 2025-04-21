@@ -1,33 +1,43 @@
-name: Deploy Worker and Upload Templates
+# 已禁用的GitHub Actions配置
+# 如需启用，请移除此注释并设置正确的secrets
 
+name: "[DISABLED] Deploy Worker and Upload Templates"
+
+# 已禁用自动触发
+# on:
+#   push:
+#     branches:
+#       - main
 on:
-  push:
-    branches:
-      - main
+  # 仅允许手动触发
   workflow_dispatch:
 
 jobs:
   deploy:
+    # 添加条件以防止误触发
+    if: ${{ false }}  # 始终跳过此工作流
     runs-on: ubuntu-latest
     name: Deploy Worker & Upload Templates
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
       
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '16'
+          cache: 'npm'
+          cache-dependency-path: 'workers/package-lock.json'
           
       - name: Install Dependencies
         run: npm ci
         working-directory: ./workers
         
       - name: Deploy to Cloudflare Workers
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          workingDirectory: 'workers'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+        run: npx wrangler deploy
+        working-directory: ./workers
           
       - name: Upload Templates to KV
         run: node upload-templates.js

@@ -4,7 +4,8 @@
   "description": "基于Python的Cloudflare Worker项目",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "git push -u origin main"
+    "deploy": "git push -u origin main",
+    "upload-temp": "node upload-templates.js --remote"
   },
   "devDependencies": {
     "wrangler": "^4.12.0"

@@ -36,28 +36,75 @@ node upload-templates.js
 
 ## 部署
 
-### 手动部署
+### 使用一键部署脚本（推荐）
 
+项目提供了便捷的一键部署脚本，可以同时完成Worker部署和模板上传：
+
+**Linux/macOS:**
 ```bash
-# 部署到Cloudflare
-npx wrangler deploy
+# 赋予脚本执行权限
+chmod +x deploy.sh
 
-# 上传模板文件到KV
-node upload-templates.js
+# 完整部署（部署Worker并上传模板到本地KV）
+./deploy.sh
+
+# 只上传模板，不部署Worker
+./deploy.sh --no-deploy
+
+# 只部署Worker，不上传模板
+./deploy.sh --no-upload
+
+# 跳过依赖安装
+./deploy.sh --skip-install
+
+# 上传模板到远程KV
+./deploy.sh --remote
+
+# 同时上传模板到本地和远程KV
+./deploy.sh --both
+
+# 只上传模板到远程KV，不部署Worker
+./deploy.sh --no-deploy --remote
 ```
 
-### 自动部署 (GitHub Actions)
+**Windows:**
+```bash
+# 完整部署（部署Worker并上传模板到本地KV）
+deploy.bat
 
-项目配置了GitHub Actions自动部署流程，当代码推送到main分支时会自动执行以下步骤：
+# 只上传模板，不部署Worker
+deploy.bat --no-deploy
 
-1. 运行测试
-2. 部署Worker到Cloudflare
-3. 上传模板文件到KV存储
+# 只部署Worker，不上传模板
+deploy.bat --no-upload
 
-要启用自动部署，需要在GitHub仓库中设置以下密钥：
+# 跳过依赖安装
+deploy.bat --skip-install
 
-- `CF_API_TOKEN`: Cloudflare API令牌（需要有Workers和KV的写入权限）
-- `CF_ACCOUNT_ID`: Cloudflare账户ID
+# 上传模板到远程KV
+deploy.bat --remote
+
+# 同时上传模板到本地和远程KV
+deploy.bat --both
+
+# 只上传模板到远程KV，不部署Worker
+deploy.bat --no-deploy --remote
+```
+
+### 手动上传模板
+
+您可以使用`upload-templates.js`脚本单独上传模板文件：
+
+```bash
+# 上传模板到本地KV (默认)
+node upload-templates.js
+
+# 上传模板到远程KV
+node upload-templates.js --remote
+
+# 同时上传模板到本地和远程KV
+node upload-templates.js --both
+```
 
 ## 模板管理
 
