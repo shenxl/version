@@ -14,6 +14,16 @@
         },
         {
           "type": "app",
+          "name": "会议",
+          "item_key": "woa-meeting-assistant"
+        },
+        {
+          "type": "app",
+          "name": "日历",
+          "item_key": "calendar"
+        },
+        {
+          "type": "app",
           "name": "教学空间",
           "item_key": "AK20250411IPRDMO"
         },
@@ -24,18 +34,13 @@
         },
         {
           "type": "app",
+          "name": "WPS精品课",
+          "item_key": "AK20250411TTRIDH"
+        },
+        {
+          "type": "app",
           "name": "WPS灵犀",
           "item_key": "AK20250411KHRLWR"
-        },
-        {
-          "type": "app",
-          "name": "会议",
-          "item_key": "woa-meeting-assistant"
-        },
-        {
-          "type": "app",
-          "name": "日历",
-          "item_key": "calendar"
         },
         {
           "type": "widget",
@@ -49,7 +54,7 @@
       "items": [
         {
           "type": "widget",
-          "name": "智慧教育",
+          "name": "智慧教育平台",
           "item_key": "workbench"
         }
       ]
