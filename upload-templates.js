@@ -1,10 +1,12 @@
 /**
  * 将模板文件上传到Cloudflare KV的脚本
- * 使用方法: node upload-templates.js [--local|--remote]
+ * 使用方法: node upload-templates.js [--local|--remote] [--version=<版本号>]
  * 选项：
- *   --local    只上传到本地KV (默认)
- *   --remote   只上传到远程KV
- *   --both     同时上传到本地和远程KV
+ *   --local      只上传到本地KV (默认)
+ *   --remote     只上传到远程KV
+ *   --both       同时上传到本地和远程KV
+ *   --version    只上传指定版本的模板 (例如: --version=1.0.3)
+ *                如果不指定，则使用wrangler.toml中的CURRENT_VERSION
  */
 
 const fs = require('fs');
@@ -16,6 +18,8 @@ const TEMPLATE_DIR = path.join(__dirname, 'src', 'template');
 
 // 解析命令行参数
 let uploadTarget = 'local'; // 默认为本地
+let specificVersion = null; // 默认为null，表示使用wrangler.toml中的版本
+
 const args = process.argv.slice(2);
 if (args.includes('--remote')) {
   uploadTarget = 'remote';
@@ -24,7 +28,39 @@ if (args.includes('--both')) {
   uploadTarget = 'both';
 }
 
+// 解析版本参数
+const versionArg = args.find(arg => arg.startsWith('--version='));
+if (versionArg) {
+  specificVersion = versionArg.split('=')[1];
+}
+
+// 从wrangler.toml获取当前版本
+function getCurrentVersion() {
+  try {
+    const wranglerConfig = fs.readFileSync(path.join(__dirname, 'wrangler.toml'), 'utf-8');
+    const versionMatch = wranglerConfig.match(/CURRENT_VERSION\s*=\s*["']([^"']+)["']/);
+    
+    if (versionMatch && versionMatch[1]) {
+      return versionMatch[1];
+    }
+    return null;
+  } catch (error) {
+    console.error('读取wrangler.toml中的版本失败:', error.message);
+    return null;
+  }
+}
+
+// 如果未指定版本，则使用wrangler.toml中的当前版本
+if (!specificVersion) {
+  specificVersion = getCurrentVersion();
+  if (!specificVersion) {
+    console.error('未指定版本且未能从wrangler.toml中读取版本信息');
+    process.exit(1);
+  }
+}
+
 console.log(`上传目标: ${uploadTarget === 'both' ? '本地和远程' : uploadTarget === 'remote' ? '远程' : '本地'}`);
+console.log(`上传版本: ${specificVersion}`);
 
 /**
  * 上传单个文件到KV
@@ -118,12 +154,19 @@ async function main() {
     process.exit(1);
   }
   
-  console.log('开始上传模板文件到Cloudflare KV...');
+  // 检查指定版本的模板目录是否存在
+  const versionDir = path.join(TEMPLATE_DIR, specificVersion);
+  if (!fs.existsSync(versionDir)) {
+    console.error(`指定版本的模板目录不存在: ${versionDir}`);
+    process.exit(1);
+  }
   
-  // 处理模板目录
-  processDirectory(TEMPLATE_DIR);
+  console.log(`开始上传版本 ${specificVersion} 的模板文件到Cloudflare KV...`);
   
-  console.log('模板文件上传完成！');
+  // 仅处理指定版本的模板目录
+  processDirectory(versionDir, specificVersion);
+  
+  console.log(`版本 ${specificVersion} 的模板文件上传完成！`);
 }
 
 // 执行主函数
