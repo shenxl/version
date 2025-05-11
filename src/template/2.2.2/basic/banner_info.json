@@ -1,0 +1,19 @@
+{
+  "65112": {
+    "id": 65112,
+    "type": "BlockBanner",
+    "content": {
+      "pictures": [
+        {
+          "href": {
+            "mobile": "",
+            "pc": "",
+            "pc_open_type": 1
+          },
+          "store_key": "DD1AFB29YmU2NTY4ODk2ZDE4NWQwY2U2ZGQ4MTc3MDE3YWIxN2Y6a3MzOmtvYS1pbWc=",
+          "url": ""
+        }
+      ]
+    }
+  }
+}
