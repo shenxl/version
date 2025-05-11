@@ -1,0 +1,72 @@
+{
+  "pc": {
+    "BlockBanner": {
+      "name": "宣传栏",
+      "payload": {
+        "block_template_id": 1,
+        "block_type": "BlockBanner"
+      },
+      "pictures": [
+        "DD1AFB29YmU2NTY4ODk2ZDE4NWQwY2U2ZGQ4MTc3MDE3YWIxN2Y6a3MzOmtvYS1pbWc="
+      ]
+    },
+    "BlockAnnouncement": {
+      "name": "公告",
+      "payload": {
+        "block_template_id": 6,
+        "block_type": "BlockAnnouncement"
+      }
+    },
+    "BlockPersonalPrepareLessons": {
+      "name": "个人备课本",
+      "payload": {
+        "block_template_id": 15,
+        "block_type": "BlockPersonalPrepareLessons"
+      }
+    },
+    "BlockGroupPrepareLessons": {
+      "name": "协同教研",
+      "payload": {
+        "block_template_id": 16,
+        "block_type": "BlockGroupPrepareLessons"
+      }
+    },
+    "BlockAppListFluid": {
+      "name": "系统应用列表",
+      "payload": {
+        "block_template_id": 8,
+        "block_type": "BlockAppListFluid"
+      }
+    }
+  },
+  "mobile": {
+    "BlockAnnouncement": {
+      "name": "公告",
+      "payload": {
+        "block_template_id": 6,
+        "block_type": "BlockAnnouncement"
+      }
+    },
+    "BlockFavoriteApp": {
+      "name": "常用应用",
+      "payload": {
+        "block_template_id": 2,
+        "block_type": "BlockFavoriteApp"
+      }
+    },
+    "BlockRili": {
+      "name": "日历",
+      "payload": {
+        "block_template_id": 4,
+        "block_type": "BlockRili"
+      }
+    },
+    "BlockBasicApp": {
+      "name": "基础应用",
+      "payload": {
+        "block_template_id": 7,
+        "block_type": "BlockBasicApp"
+      }
+    }
+  }
+}
