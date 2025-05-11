@@ -15,14 +15,14 @@
               "value": "#F5F5F5"
             },
             "background_image": {
-              "store_key": "DD1AFB29ODQwY2MzNzI3MmQ4YTc2ZTY2ZWRlZGU2YmRiOTg1OGM6a3MzOndvYS1zdGF0aWM="
+              "store_key": "DD1AFB29NmUzZjE4MGZlNWQxZTM0MjZmZTJhZDhmNWEzYTc0ODc6a3MzOndvYS1zdGF0aWM="
             },
             "background_upload_image": {
               "dark": {
                 "store_key": ""
               },
               "light": {
-                "store_key": "DD1AFB29NmVmZTlmZmUxODUwM2MyNTgwZWRjZjI4OWJkZGE1NjY6a3MzOmtvYS1pbWc="
+                "store_key": "DD1AFB29NTdmY2EyYjJjNGQwZGEwMzFhYjBjNmIxYjk1ZGI2Yjg6a3MzOmtvYS1pbWc="
               }
             }
           },
@@ -122,7 +122,7 @@
         },
         {
           "type": "LayoutTwoColumn",
-          "id": "LayoutTwoColumn-17458061293724",
+          "id": "LayoutTwoColumn-17419336968834",
           "props": {
             "layout_setting": {
               "grids": "1:1",
@@ -148,7 +148,7 @@
           "children": [
             {
               "type": "BlockContainer",
-              "id": "BlockContainer-17458061293725",
+              "id": "BlockContainer-17419336968835",
               "props": {
                 "style": {
                   "gridArea": "1 / 1 / 2 / 2"
@@ -185,7 +185,7 @@
             },
             {
               "type": "BlockContainer",
-              "id": "BlockContainer-17458061293726",
+              "id": "BlockContainer-17419336968836",
               "props": {
                 "style": {
                   "gridArea": "1 / 2 / 2 / 3"
@@ -226,7 +226,7 @@
         },
         {
           "type": "LayoutTwoColumn",
-          "id": "LayoutTwoColumn-17419373263959",
+          "id": "LayoutTwoColumn-17422668062004",
           "props": {
             "layout_setting": {
               "grids": "1:1",
@@ -252,7 +252,7 @@
           "children": [
             {
               "type": "BlockContainer",
-              "id": "BlockContainer-174193732639510",
+              "id": "BlockContainer-17422668062005",
               "props": {
                 "style": {
                   "gridArea": "1 / 1 / 2 / 2"
@@ -260,19 +260,30 @@
               },
               "children": [
                 {
-                  "type": "BlockPersonalPrepareLessons",
-                  "id": "$BlockPersonalPrepareLessons_id",
+                  "type": "BlockFavoriteApp",
+                  "id": "$BlockFavoriteApp_id",
                   "props": {
                     "block_props": {
-                      "block_id": "$BlockPersonalPrepareLessons_id",
-                      "status": 0
+                      "block_id": "$BlockFavoriteApp_id",
+                      "status": 0,
+                      "template_config": {
+                        "display_mode": "all",
+                        "single_count_mode": "resize"
+                      }
                     },
                     "editor_props": {
                       "show_header": true,
                       "style": {
                         "height": "280px"
                       },
-                      "title": "我的备课本",
+                      "title": "常用应用",
+                      "title_i18n": {
+                        "en-US": "Common apps",
+                        "ja-JP": "一般的なアプリ",
+                        "th-TH": "แอปทั่วไป",
+                        "zh-CN": "常用应用",
+                        "zh-HK": "常用應用程式"
+                      },
                       "title_url": ""
                     }
                   }
@@ -281,7 +292,7 @@
             },
             {
               "type": "BlockContainer",
-              "id": "BlockContainer-174193732639511",
+              "id": "BlockContainer-17422668062006",
               "props": {
                 "style": {
                   "gridArea": "1 / 2 / 2 / 3"
@@ -289,11 +300,11 @@
               },
               "children": [
                 {
-                  "type": "BlockGroupPrepareLessons",
-                  "id": "$BlockGroupPrepareLessons_id",
+                  "type": "BlockRili",
+                  "id": "$BlockRili_id",
                   "props": {
                     "block_props": {
-                      "block_id": "$BlockGroupPrepareLessons_id",
+                      "block_id": "$BlockRili_id",
                       "status": 0
                     },
                     "editor_props": {
@@ -301,7 +312,14 @@
                       "style": {
                         "height": "280px"
                       },
-                      "title": "协同教研",
+                      "title": "日历",
+                      "title_i18n": {
+                        "en-US": "Calendar",
+                        "ja-JP": "カレンダー",
+                        "th-TH": "ปฏิทิน",
+                        "zh-CN": "日历",
+                        "zh-HK": "日曆"
+                      },
                       "title_url": ""
                     }
                   }
@@ -312,7 +330,7 @@
         },
         {
           "type": "Layout",
-          "id": "Layout-17429854389144",
+          "id": "Layout-174193369959511",
           "props": {
             "layout_setting": {
               "style": {
@@ -330,7 +348,7 @@
           "children": [
             {
               "type": "BlockContainer",
-              "id": "BlockContainer-17429854389145",
+              "id": "BlockContainer-174193369959512",
               "props": {},
               "children": [
                 {
@@ -342,16 +360,17 @@
                       "status": 0
                     },
                     "editor_props": {
-                      "show_header": true,
+                      "is_fold_options": true,
+                      "show_header": false,
                       "style": {
                         "height": "auto"
                       },
-                      "title": "系统应用列表",
+                      "title": "应用列表",
                       "title_i18n": {
                         "en-US": "System app list",
                         "ja-JP": "システム アプリ リスト",
                         "th-TH": "รายการแอประบบ",
-                        "zh-CN": "系统应用列表",
+                        "zh-CN": "应用列表",
                         "zh-HK": "系統應用程式清單"
                       },
                       "title_url": ""
@@ -385,7 +404,7 @@
                 "store_key": ""
               },
               "light": {
-                "store_key": "DD1AFB29YTRiNjRlZjBhNGE5MGM2YWYxOGNkMzI2Njc3NTkzZTY6a3MzOmtvYS1pbWc="
+                "store_key": "DD1AFB29ZDM4MjUyY2JjYzk1YTA5OWRkMzMxMWIwYjEzM2E3NjU6a3MzOmtvYS1pbWc="
               }
             }
           },
@@ -432,7 +451,7 @@
         },
         {
           "type": "Layout",
-          "id": "Layout-17422696375704",
+          "id": "Layout-174193520496115",
           "props": {
             "layout_setting": {
               "style": {
@@ -447,86 +466,30 @@
           "children": [
             {
               "type": "BlockContainer",
-              "id": "BlockContainer-17422696375705",
+              "id": "BlockContainer-174193520496116",
               "props": {},
               "children": [
                 {
-                  "type": "BlockAnnouncement",
-                  "id": "$BlockAnnouncement_id",
+                  "type": "BlockBanner",
+                  "id": "$BlockBanner_id",
                   "props": {
                     "block_props": {
-                      "block_id": "$BlockAnnouncement_id",
-                      "status": 0,
-                      "template_config": {
-                        "display_mode": 1
-                      }
+                      "block_id": "$BlockBanner_id",
+                      "setting_url": "https://open-xz.wps.cn/workspace/banner/$BlockBanner_id?client=mobile",
+                      "status": 0
                     },
                     "editor_props": {
-                      "show_header": true,
-                      "style": {
-                        "height": "280px"
-                      },
-                      "title": "公告",
-                      "title_i18n": {
-                        "en-US": "Announcement",
-                        "ja-JP": "お知らせ",
-                        "th-TH": "ประกาศ",
-                        "zh-CN": "公告",
-                        "zh-HK": "公告"
-                      },
-                      "title_url": ""
-                    }
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "Layout",
-          "id": "Layout-17422696375706",
-          "props": {
-            "layout_setting": {
-              "style": {
-                "boxSizing": "border-box",
-                "marginBottom": "24px",
-                "marginTop": "16px",
-                "paddingLeft": "16px",
-                "paddingRight": "16px"
-              }
-            }
-          },
-          "children": [
-            {
-              "type": "BlockContainer",
-              "id": "BlockContainer-17422696375707",
-              "props": {},
-              "children": [
-                {
-                  "type": "BlockFavoriteApp",
-                  "id": "$BlockFavoriteApp_id",
-                  "props": {
-                    "block_props": {
-                      "block_id": "$BlockFavoriteApp_id",
-                      "status": 0,
-                      "template_config": {
-                        "display_mode": "all",
-                        "single_count_mode": "resize"
-                      }
-                    },
-                    "editor_props": {
-                      "customHeight": "200px",
                       "show_header": true,
                       "style": {
                         "height": "auto"
                       },
-                      "title": "常用应用",
+                      "title": "宣传栏",
                       "title_i18n": {
-                        "en-US": "Common apps",
-                        "ja-JP": "一般的なアプリ",
-                        "th-TH": "แอปทั่วไป",
-                        "zh-CN": "常用应用",
-                        "zh-HK": "常用應用程式"
+                        "en-US": "Bulletin board",
+                        "ja-JP": "掲示板",
+                        "th-TH": "กระดานข่าว",
+                        "zh-CN": "宣传栏",
+                        "zh-HK": "宣傳欄"
                       },
                       "title_url": ""
                     }
@@ -538,7 +501,7 @@
         },
         {
           "type": "Layout",
-          "id": "Layout-17422696375708",
+          "id": "Layout-174193521027717",
           "props": {
             "layout_setting": {
               "style": {
@@ -553,7 +516,7 @@
           "children": [
             {
               "type": "BlockContainer",
-              "id": "BlockContainer-17422696375709",
+              "id": "BlockContainer-174193521027718",
               "props": {},
               "children": [
                 {
@@ -587,7 +550,7 @@
         },
         {
           "type": "Layout",
-          "id": "Layout-174226963757010",
+          "id": "Layout-174193517293213",
           "props": {
             "layout_setting": {
               "style": {
@@ -602,7 +565,60 @@
           "children": [
             {
               "type": "BlockContainer",
-              "id": "BlockContainer-174226963757011",
+              "id": "BlockContainer-174193517293314",
+              "props": {},
+              "children": [
+                {
+                  "type": "BlockFavoriteApp",
+                  "id": "$BlockFavoriteApp_id",
+                  "props": {
+                    "block_props": {
+                      "block_id": "$BlockFavoriteApp_id",
+                      "status": 0,
+                      "template_config": {
+                        "display_mode": "all",
+                        "single_count_mode": "resize"
+                      }
+                    },
+                    "editor_props": {
+                      "show_header": true,
+                      "style": {
+                        "height": "auto"
+                      },
+                      "title": "常用应用",
+                      "title_i18n": {
+                        "en-US": "Common apps",
+                        "ja-JP": "一般的なアプリ",
+                        "th-TH": "แอปทั่วไป",
+                        "zh-CN": "常用应用",
+                        "zh-HK": "常用應用程式"
+                      },
+                      "title_url": ""
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Layout",
+          "id": "Layout-17434783958484",
+          "props": {
+            "layout_setting": {
+              "style": {
+                "boxSizing": "border-box",
+                "marginBottom": "24px",
+                "marginTop": "16px",
+                "paddingLeft": "16px",
+                "paddingRight": "16px"
+              }
+            }
+          },
+          "children": [
+            {
+              "type": "BlockContainer",
+              "id": "BlockContainer-17434783958485",
               "props": {},
               "children": [
                 {
@@ -641,5 +657,5 @@
       ]
     }
   },
-  "remark": "创建-基教智慧平台"
+  "remark": "创建-高校智慧平台"
 }

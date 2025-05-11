@@ -32,6 +32,9 @@ npm run test:coverage
 
 # 手动上传模板文件到KV
 node upload-templates.js
+
+# 手动上传指定版本的模板文件到KV
+node upload-templates.js --version=1.0.3
 ```
 
 ## 部署
@@ -65,6 +68,12 @@ chmod +x deploy.sh
 
 # 只上传模板到远程KV，不部署Worker
 ./deploy.sh --no-deploy --remote
+
+# 只上传指定版本的模板
+./deploy.sh --version=1.0.3
+
+# 只上传指定版本的模板到远程KV，不部署Worker
+./deploy.sh --no-deploy --remote --version=1.0.3
 ```
 
 **Windows:**
@@ -89,6 +98,12 @@ deploy.bat --both
 
 # 只上传模板到远程KV，不部署Worker
 deploy.bat --no-deploy --remote
+
+# 只上传指定版本的模板
+deploy.bat --version=1.0.3
+
+# 只上传指定版本的模板到远程KV，不部署Worker
+deploy.bat --no-deploy --remote --version=1.0.3
 ```
 
 ### 手动上传模板
@@ -104,6 +119,12 @@ node upload-templates.js --remote
 
 # 同时上传模板到本地和远程KV
 node upload-templates.js --both
+
+# 只上传指定版本的模板 (例如1.0.3)
+node upload-templates.js --version=1.0.3
+
+# 上传指定版本模板到远程KV
+node upload-templates.js --remote --version=1.0.3
 ```
 
 ## 模板管理
