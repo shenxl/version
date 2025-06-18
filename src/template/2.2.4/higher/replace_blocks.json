@@ -1,0 +1,91 @@
+{
+  "pc": {
+    "BlockBanner": {
+      "name": "宣传栏",
+      "payload": {
+        "block_template_id": 1,
+        "block_type": "BlockBanner"
+      },
+      "pictures": [
+        {
+          "href": {
+            "mobile": "",
+            "pc": "",
+            "pc_open_type": 1
+          },
+          "store_key": "DD1AFB29MTNiMjNiYTRhZGQ1ZGI1YjRhODE0ZjQ2NWM3OTlhMTI6a3MzOmtvYS1pbWc=",
+          "url": ""
+        }
+      ]
+    },
+    "BlockAnnouncement": {
+      "name": "公告",
+      "payload": {
+        "block_template_id": 6,
+        "block_type": "BlockAnnouncement"
+      }
+    },
+    "BlockFavoriteApp": {
+      "name": "常用应用",
+      "payload": {
+        "block_template_id": 2,
+        "block_type": "BlockFavoriteApp"
+      }
+    },
+    "BlockRili": {
+      "name": "日历",
+      "payload": {
+        "block_template_id": 4,
+        "block_type": "BlockRili"
+      }
+    },
+    "BlockAppListFluid": {
+      "name": "系统应用列表",
+      "payload": {
+        "block_template_id": 8,
+        "block_type": "BlockAppListFluid"
+      }
+    }
+  },
+  "mobile": {
+    "BlockBanner": {
+      "name": "宣传栏",
+      "payload": {
+        "block_template_id": 1,
+        "block_type": "BlockBanner"
+      },
+      "pictures": [
+        {
+          "href": {
+            "mobile": "",
+            "pc": "",
+            "pc_open_type": 1
+          },
+          "store_key": "DD1AFB29YTNhYzJmZjFhMzI2ZDlhMDFmYWVmZTVhOGIxM2Q3ZDE6a3MzOmtvYS1pbWc=",
+          "url": ""
+        }
+      ]
+    },
+    "BlockRili": {
+      "name": "日历",
+      "payload": {
+        "block_template_id": 4,
+        "block_type": "BlockRili"
+      }
+    },
+    "BlockFavoriteApp": {
+      "name": "常用应用",
+      "payload": {
+        "block_template_id": 2,
+        "block_type": "BlockFavoriteApp"
+      }
+    },
+    "BlockBasicApp": {
+      "name": "基础应用",
+      "payload": {
+        "block_template_id": 7,
+        "block_type": "BlockBasicApp"
+      }
+    }
+  }
+}
