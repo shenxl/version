@@ -4,7 +4,7 @@ compatibility_date = "2023-08-01"
 
 [vars]
 AirScript_Token = "771DFCwiaEbNjBriQtAHWF"
-CURRENT_VERSION = "2.2.4"
+CURRENT_VERSION = "2.2.5"
 
 # 为模板文件配置KV命名空间
 [[kv_namespaces]]

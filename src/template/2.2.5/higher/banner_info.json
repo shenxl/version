@@ -1,0 +1,36 @@
+{
+  "65924": {
+    "id": 65924,
+    "type": "BlockBanner",
+    "content": {
+      "pictures": [
+        {
+          "href": {
+            "mobile": "",
+            "pc": "",
+            "pc_open_type": 1
+          },
+          "store_key": "DD1AFB29MTNiMjNiYTRhZGQ1ZGI1YjRhODE0ZjQ2NWM3OTlhMTI6a3MzOmtvYS1pbWc=",
+          "url": ""
+        }
+      ]
+    }
+  },
+  "65923": {
+    "id": 65923,
+    "type": "BlockBanner",
+    "content": {
+      "pictures": [
+        {
+          "href": {
+            "mobile": "",
+            "pc": "",
+            "pc_open_type": 1
+          },
+          "store_key": "DD1AFB29YTNhYzJmZjFhMzI2ZDlhMDFmYWVmZTVhOGIxM2Q3ZDE6a3MzOmtvYS1pbWc=",
+          "url": ""
+        }
+      ]
+    }
+  }
+}
