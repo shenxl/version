@@ -1,0 +1,76 @@
+{
+  "pc": {
+    "BlockBanner": {
+      "name": "宣传栏",
+      "payload": {
+        "block_template_id": 1,
+        "block_type": "BlockBanner"
+      }
+    },
+    "BlockAnnouncement": {
+      "name": "公告",
+      "payload": {
+        "block_template_id": 6,
+        "block_type": "BlockAnnouncement"
+      }
+    },
+    "BlockFavoriteApp": {
+      "name": "常用应用",
+      "payload": {
+        "block_template_id": 2,
+        "block_type": "BlockFavoriteApp"
+      }
+    },
+    "BlockRili": {
+      "name": "日历",
+      "payload": {
+        "block_template_id": 4,
+        "block_type": "BlockRili"
+      }
+    },
+    "BlockAppList": {
+      "name": "应用列表",
+      "payload": {
+        "block_template_id": 3,
+        "block_type": "BlockAppList"
+      }
+    }
+  },
+  "mobile": {
+    "BlockBanner": {
+      "name": "宣传栏",
+      "payload": {
+        "block_template_id": 1,
+        "block_type": "BlockBanner"
+      }
+    },
+    "BlockRili": {
+      "name": "日历",
+      "payload": {
+        "block_template_id": 4,
+        "block_type": "BlockRili"
+      }
+    },
+    "BlockFavoriteApp": {
+      "name": "常用应用",
+      "payload": {
+        "block_template_id": 2,
+        "block_type": "BlockFavoriteApp"
+      }
+    },
+    "BlockBasicApp": {
+      "name": "基础应用",
+      "payload": {
+        "block_template_id": 7,
+        "block_type": "BlockBasicApp"
+      }
+    },
+    "BlockAppList": {
+      "name": "应用列表",
+      "payload": {
+        "block_template_id": 3,
+        "block_type": "BlockAppList"
+      }
+    }
+  }
+}
